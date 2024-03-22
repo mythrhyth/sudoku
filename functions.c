@@ -104,6 +104,52 @@ int solveSudoku(char sudoku[9][9]) {
     // No solution found
     return 0;
 }
+void fprintSudoku(FILE* fp,char sudoku[9][9]){
+  fprintf(fp,"-------------------------------\n");
+    for (int i = 0; i < 9; i++) {
+        fprintf(fp,"|");
+        for (int j = 0; j < 9; j++) {
+            fprintf(fp, "%c", sudoku[i][j]);
+            if((j+1) % 3 == 0){
+                fprintf(fp,"|");
+            }
+        }
+        fprintf(fp,"\n");
+         if((i+1) % 3 == 0){
+            fprintf(fp,"-------------------------------\n");
+        }
+    }
+}
+void read_file_into_matrix(char matrix[9][9]) {
+    FILE *file;
+    char character;
+    int row = 0, col = 0;
+
+    file = fopen("solution.txt", "r");
+
+    if (file == NULL) {
+        printf("Error opening file.\n");
+        return;
+    }
+
+
+    while ((character = fgetc(file)) != EOF && row < 9) {
+        if ((character >= '0' && character <= '9') || character == '.') {
+            matrix[row][col] = character;
+            col++;
+            if (col == 9) {
+                col = 0;
+                row++;
+            }
+        }
+    }
+
+    fclose(file);
+}
+
+
+
+
 
 void generateSudoku(char sudoku[9][9], int difficulty,char r[9][9]) {
     // Initialize Sudoku grid with empty cells
@@ -122,6 +168,7 @@ void generateSudoku(char sudoku[9][9], int difficulty,char r[9][9]) {
             r[i][j]=sudoku[i][j];
         }
     }
+    printSudoku(sudoku);
 
     // Remove cells based on difficulty level
     int removeCount = 0;
@@ -151,6 +198,13 @@ void generateSudoku(char sudoku[9][9], int difficulty,char r[9][9]) {
     // Print the generated Sudoku
     printf("The . denotes the space to be filled\n");
     printSudoku(sudoku);
+
+  FILE* fp=fopen("rhythm.txt","w");
+  FILE* c=fopen("solution.txt","w");
+  fprintSudoku(fp,sudoku);
+  fprintSudoku(c,sudoku);
+  fclose(fp);
+  fclose(c);
 
 }
 bool areArraysEqual(char array1[9][9], char array2[9][9]) {
