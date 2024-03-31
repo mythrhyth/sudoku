@@ -1,4 +1,4 @@
-// functions.c
+// // functions.c
 
 // #include <stdio.h>
 // #include <stdlib.h>
@@ -104,6 +104,23 @@
 //     // No solution found
 //     return 0;
 // }
+// void fprintemptysudoku(FILE* fp){
+//      fprintf(fp,"-------------------------------\n");
+//     for (int i = 0; i < 9; i++) {
+//         fprintf(fp,"|");
+//         for (int j = 0; j < 9; j++) {
+//             fprintf(fp, ".");
+//             if((j+1) % 3 == 0){
+//                 fprintf(fp,"|");
+//             }
+//         }
+//         fprintf(fp,"\n");
+//          if((i+1) % 3 == 0){
+//             fprintf(fp,"-------------------------------\n");
+//         }
+//     }
+//     fclose(fp);
+// }
 // void fprintSudoku(FILE* fp,char sudoku[9][9]){
 //   fprintf(fp,"-------------------------------\n");
 //     for (int i = 0; i < 9; i++) {
@@ -120,12 +137,9 @@
 //         }
 //     }
 // }
-// void read_file_into_matrix(char matrix[9][9]) {
-//     FILE *file;
+// void read_file_into_matrix(FILE* file,char matrix[9][9]) {
 //     char character;
 //     int row = 0, col = 0;
-
-//     file = fopen("solution.txt", "r");
 
 //     if (file == NULL) {
 //         printf("Error opening file.\n");
@@ -158,6 +172,7 @@
 //             sudoku[i][j] = '.';
 //         }
 //     }
+    
 
 //     // Solve the empty Sudoku grid
 //     solveSudoku(sudoku);
@@ -217,8 +232,8 @@
 //     }
 //     return true; // All elements are equal
 // }
-// functions.c
 
+//functions.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -296,7 +311,7 @@ int solveSudoku(char sudoku[9][9]) {
     }
 
     // Generate random numbers for filling the empty cell
-    srand(time(NULL));
+    // srand(time(NULL));
     char numbers[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
     for (int i = 0; i < 9; i++) {
         int j = rand() % (9 - i) + i;
